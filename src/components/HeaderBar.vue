@@ -32,7 +32,7 @@
               <router-link class="nav-link" to="/about">Carreira</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/insights">Notícias</router-link>
+              <router-link class="nav-link" to="/insights">Blog</router-link>
             </li>
             <li class="nav-item">
               <router-link class="nav-link" to="/contact">Contacte-nos</router-link>

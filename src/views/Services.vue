@@ -1,7 +1,7 @@
 <template>
   <div class="services">
     <!-- Introdução -->
-    <section class="introduction">
+    <section class="introduction" style="margin-top: 100px;">
       <div class="intro-banner">
         <img src="@/assets/images/team2.jpg" alt="Banner" class="banner-image" />
         <div class="banner-text">

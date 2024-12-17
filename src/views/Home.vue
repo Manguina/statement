@@ -64,8 +64,27 @@
 </section>
 
 <!-- 1.2. Sobre Nós -->
+ <section style="background-color: #f9f9f9;">
+ <div class="container" >
 
-
+<div class="row">
+  <h2 class="section-title" style="margin-bottom: 25px;">Por que contratar a Statement Management Consulting?</h2>
+    <div class="col-md-8 col-sm-12">
+      <div class="about-content">
+        <div class="text-content">
+          <p>
+            Escolher a <strong> Statement Management Consulting </strong>é optar por um parceiro que entende a complexidade dos negócios e está comprometido em oferecer soluções eficazes. Nossos consultores são especialistas em unir conhecimento técnico com insights estratégicos, sempre com foco em resultados. Somos reconhecidos por nossa abordagem personalizada, transparência e compromisso com a excelência. Deixe-nos transformar seus desafios em oportunidades de crescimento.
+          </p>
+         
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 col-sm-12">
+      <img src="@/assets/images/team-placeholder.jpg" alt="Equipe da Empresa" class="about-image" />
+    </div>
+</div>
+</div>
+</section>
   <section class="testimonials">
   <h2 class="section-title-2">O Que Nossos Clientes Dizem</h2>
   <div class="testimonials-container">
@@ -96,6 +115,10 @@ export default {
 
 <style scoped>
 /* Estilo geral */
+
+body {
+  background-color: #f9f9f9;
+}
 .home {
   font-family: 'Inter', sans-serif;
   margin: 0;

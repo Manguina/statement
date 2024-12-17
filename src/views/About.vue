@@ -1,11 +1,12 @@
 <template>
-  <div class="careers-page">
+  <div class="careers-page" style="margin-top: 100px;">
     <!-- Banner principal -->
-    <section class="hero-banner" style="background-image: url('@/assets/images/trabalhar-placeholder.jpg');">
-      <div class="banner-content">
-        <h1>Carreiras em Angola</h1>
+    <div class="intro-banner">
+        <img src="@/assets/images/team2.jpg" alt="Banner" class="banner-image" />
+        <div class="banner-text">
+          <h1 class="main-title">Carreira Angola</h1>
+        </div>
       </div>
-    </section>
 
     <!-- O que procuramos -->
     <section class="what-we-look-for">
@@ -86,6 +87,8 @@ export default {
 .careers-page {
   font-family: Arial, sans-serif;
 }
+
+
 
 /* Banner principal */
 .hero-banner {
@@ -222,5 +225,33 @@ export default {
 .contact h3 {
   margin-bottom: 20px;
   font-size: 1.5em;
+}
+
+/* Banner da Introdução */
+.intro-banner {
+  position: relative;
+  color: #555;
+  height: 60vh;
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  align-items: center;
+}
+
+.banner-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(70%);
+}
+
+.banner-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
 </style>
