@@ -20,27 +20,27 @@
 
     <!-- Main Articles Section -->
     <section class="main-articles">
-      <div class="featured-article">
-        <img src="@/assets/images/work-environment-placeholder.jpg" alt="Artigo em destaque">
+      <div v-if="destaque" @click="goToDetails(destaque.id)"  class="featured-article">
+        <img :src="destaque.image_url" alt="Artigo em destaque">
         <div class="content">
-          <span class="category">Estratégia e análise</span>
-          <h2>Pontos de inflexão: quando apostar em novas tecnologias</h2>
+          <span class="category"></span>
+          <h2>{{ destaque.title }}</h2>
           <p>
-            Ferramentas preditivas podem ajudar as empresas a avaliar quando novas
-            tecnologias devem ser adotadas.
+           {{ destaque.content }}
           </p>
-          <span class="date">Criado em: 11 de outubro de 2024</span>
+          <span class="date">Criado em: {{ formatDate(destaque.created_at) }}</span>
         </div>
       </div>
+      <div v-else class="featured-article">Nenhuma postagem encontrada.</div>
       <aside class="recommended">
         <h3>Recomendado</h3>
-        <div class="row mb-4 border-bottom pb-3"  v-for="(prinicipal, index) in prinicipal" :key="index">
+        <div class="row mb-4 border-bottom pb-3"  v-for="(prinicipal, index) in prinicipal" :key="index"  @click="goToDetails(prinicipal.id)">
         <div class="col-4">
-            <img :src="prinicipal.image" class="img-fluid" alt="Notícia 2">
+            <img :src="prinicipal.image_url" class="img-fluid" alt="Notícia 2">
         </div>
         <div class="col-8">
             <h5 class="mb-1">{{ prinicipal.title }}</h5>
-            <small class="text-muted">{{ prinicipal.date }}</small>
+            <small class="text-muted">{{ formatDate(prinicipal.created_at) }}</small>
         </div>
     </div>
 
@@ -49,11 +49,11 @@
 
     <!-- Articles Grid Section -->
     <section class="articles-grid">
-      <div class="article" v-for="(article, index) in articles" :key="index">
-        <img :src="article.image" :alt="`Artigo ${index + 1}`">
+      <div class="article" v-for="(article, index) in articles" :key="index" @click="goToDetails(article.id)">
+        <img :src="article.image_url" :alt="`Artigo ${index + 1}`">
         <h4>{{ article.title }}</h4>
-        <p>{{ article.description }}</p>
-        <span class="date">{{ article.date }}</span>
+        <p>{{ article.content }}</p>
+        <span class="date">{{ formatDate(article.created_at) }}</span>
       </div>
     </section>
 
@@ -88,6 +88,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   name: "InsightsPage",
   data() {
@@ -96,87 +97,40 @@ export default {
         featured: "@/assets/images/featured-article.jpg",
         placeholder: "/src/assets/images/article-placeholder.jpg",
       },
-      articles: [
-        {
-          title: "Melhorando a produtividade nas operações industriais",
-          description: "Dicas e práticas para transformar operações com impacto positivo.",
-          image: require('@/assets/images/pexels-tamillesesposito-25568827.jpg'),
-          date: "12 de dezembro de 2024",
-        },
-        {
-          title: "Tendências em sustentabilidade empresarial",
-          description: "Como as empresas estão liderando a mudança em ESG.",
-          image: require('@/assets/images/pexels-shkrabaanthony-5816291.jpg'),
-          date: "10 de dezembro de 2024",
-        },
-        {
-          title: "A revolução da inteligência artificial no varejo",
-          description: "Explorando as oportunidades criadas pela IA no setor.",
-          image: require('@/assets/images/pexels-thirdman-5327914.jpg'),
-          date: "8 de dezembro de 2024",
-        },
-        {
-          title: "Estratégias de crescimento para startups",
-          description: "Acelerando o crescimento com insights estratégicos.",
-          image: require('@/assets/images/team1.jpg'),
-          date: "5 de dezembro de 2024",
-        },
-        {
-          title: "Transformação digital em instituições financeiras",
-          description: "Os desafios e oportunidades da modernização tecnológica.",
-          image: require('@/assets/images/processo-candidatura-placeholder.jpg'),
-          date: "3 de dezembro de 2024",
-        },
-        {
-          title: "A importância da cultura organizacional",
-          description: "Criando ambientes de trabalho saudáveis e produtivos.",
-          image: require('@/assets/images/costa-rica-7479062_1280.jpg'),
-          date: "1 de dezembro de 2024",
-        },
-
-        {
-          title: "A importância da cultura organizacional2",
-          description: "Criando ambientes de trabalho saudáveis e produtivos.",
-          image: require('@/assets/images/pexels-mikhail-nilov-7679562.jpg'),
-          date: "1 de dezembro de 2024",
-        },
-
-        {
-          title: "A importância da cultura organizacional3",
-          description: "Criando ambientes de trabalho saudáveis e produtivos.",
-          image: require('@/assets/images/vietnam-9069634_640.png'),
-          date: "1 de dezembro de 2024",
-        },
-
-        {
-          title: "A importância da cultura organizacional4",
-          description: "Criando ambientes de trabalho saudáveis e produtivos.",
-          image: require('@/assets/images/webinar-placeholder.jpg'),
-          date: "1 de dezembro de 2024",
-        },
-      ],
-      prinicipal:[
-        {
-          title: "5 Tendências para Transformação Digital em Empresas",
-          description: "Descrição 1",
-          image: require('@/assets/images/webinar-placeholder.jpg'),
-          date: "1 de dezembro de 2024",
-        },
-
-        {
-          title: "Como Gerenciar Mudanças Organizacionais com Sucesso",
-          description: "Descrição 1",
-          image: require('@/assets/images/processo-candidatura-placeholder.jpg'),
-          date: "1 de dezembro de 2024",
-        },
-        {
-          title: "Estratégias para Otimizar Processos e Reduzir Custos",
-          description: "Descrição 1",
-          image: require('@/assets/images/pexels-tamillesesposito-25568827.jpg'),
-          date: "1 de dezembro de 2024",
-        },
-      ],
+      destaque:[],
+      articles: [],
+      prinicipal:[],
     };
+  },
+  methods:{
+    PostsDestaque() {
+      // Fazer a requisição para a API com o filtro
+      const apiUrl = `http://localhost/Blog/api`;
+      axios
+        .get(apiUrl)
+        .then((response) => {
+          this.destaque = response.data.destaque;
+          this.prinicipal = response.data.reco;
+          this.articles = response.data.normal;
+        })
+        .catch((error) => {
+          console.error('Erro ao carregar as postagens:', error);
+        });
+    },
+    formatDate(dateString) {
+            const date = new Date(dateString); // Converter para objeto Date
+            const day = String(date.getDate()).padStart(2, '0'); // Dia com 2 dígitos
+            const month = String(date.getMonth() + 1).padStart(2, '0'); // Mês com 2 dígitos (0-indexado)
+            const year = date.getFullYear(); // Ano
+            return `${day}-${month}-${year}`; // Formatar como dd-mm-yyyy
+        },
+    goToDetails(id) {
+            this.$router.push(`/details/${id}`);
+        },
+  },
+  created() {
+    // Carregar as postagens quando o componente é montado
+    this.PostsDestaque();
   },
 };
 </script>
